@@ -14,6 +14,13 @@ import {
 import { Metadata } from "next";
 import Link from "next/link";
 
+export async function generateStaticParams(): Promise<{ id: string }[]> {
+  const events = await getEvents();
+  return events.map((event) => ({
+    id: event.id,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -236,7 +243,7 @@ export default async function EventDetails({
       </div>
 
       <div className="hidden lg:block">
-        <Card className="sticky top-16">
+        <Card>
           <CardContent className="p-6">
             <div className="mb-6">
               <p className="font-medium text-muted-foreground">Starts from</p>
@@ -266,11 +273,4 @@ export default async function EventDetails({
       </div>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  const events = await getEvents();
-  return events.map((event) => ({
-    id: event.id,
-  }));
 }
