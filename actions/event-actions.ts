@@ -60,7 +60,7 @@ export async function createEvent(formData: FormData): Promise<CreateRes> {
         ticketTypes: result.output.ticketTypes,
         eventImageUrl: result.output.eventImageUrl,
         eventStart: result.output.eventStart,
-        eventEnd: result.output.eventEnd ?? null,
+        eventEnd: result.output.eventEnd ? result.output.eventEnd : null,
         organizerName: result.output.organizerName,
         organizerEmail: result.output.organizerEmail,
         organizerPhone: result.output.organizerPhone,
