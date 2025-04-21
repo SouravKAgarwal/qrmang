@@ -1,7 +1,6 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { boolean } from "drizzle-orm/pg-core";
 import { AuthError } from "next-auth";
 
 type Res =
