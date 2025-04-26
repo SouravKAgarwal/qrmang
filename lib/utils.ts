@@ -131,6 +131,12 @@ export const generateImage = async (
       logging: true,
       backgroundColor: null,
       removeContainer: true,
+      ignoreElements(element) {
+        return (
+          element.classList.contains("no-export") ||
+          element.tagName === "button"
+        );
+      },
       windowWidth: clone.scrollWidth,
       windowHeight: clone.scrollHeight,
     });

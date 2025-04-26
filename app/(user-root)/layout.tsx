@@ -60,7 +60,7 @@ export default async function DashboardLayout({
           <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-6 md:px-10">
             <SidebarTrigger className="-ml-1" />
             <ul className="flex items-center space-x-2">
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
 
               <Button
                 variant="ghost"

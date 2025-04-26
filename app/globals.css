@@ -79,7 +79,7 @@
     @apply border-border;
   }
   body {
-    @apply select-none scroll-smooth bg-background text-foreground;
+    @apply select-none scroll-smooth bg-background font-firaSans text-foreground;
   }
 }
 

@@ -9,7 +9,7 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between bg-background/30 px-6 py-2 backdrop-blur-lg transition-transform duration-300 md:px-10">
+    <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between bg-black px-6 py-2 text-white md:px-10">
       <h3 className="text-xl font-semibold tracking-wider">
         <Link href="/" className="font-firaSans">
           QRMang
@@ -17,7 +17,7 @@ const Navbar = async () => {
       </h3>
 
       <ul className="flex items-center space-x-2">
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
         {session?.user ? (
           <li>
             <Button
@@ -39,7 +39,7 @@ const Navbar = async () => {
                   />
                 ) : (
                   <Avatar className="h-9 w-9">
-                    <AvatarFallback>
+                    <AvatarFallback className="text-black">
                       {session?.user?.name?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
@@ -50,7 +50,12 @@ const Navbar = async () => {
         ) : (
           <>
             <li>
-              <Button variant="outline" size="sm" asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="text-black"
+              >
                 <Link href="/auth/sign-in">Sign In</Link>
               </Button>
             </li>

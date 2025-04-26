@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <>
       <Navbar />
-      <div className="flex min-h-[80svh] w-full flex-col items-center justify-center px-6 py-20 md:px-10">
+      <div className="flex min-h-[80svh] w-full flex-col items-center justify-center py-10 font-geistSans md:py-20">
         {children}
       </div>
     </>

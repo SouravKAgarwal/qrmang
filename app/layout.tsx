@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Fira_Sans, Geist, Lora } from "next/font/google";
+import { Fira_Sans, Geist } from "next/font/google";
 import { Providers as AuthProviders } from "@/components/providers";
 import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -39,14 +39,14 @@ export default function RootLayout({
         className={cn(
           geistSans.variable,
           firaSans.variable,
-          "font-geistMono antialiased",
+          "scroll-smooth bg-[#fafafa] font-firaSans antialiased",
         )}
       >
         <AuthProviders>
-          <ThemeProvider attribute="class" enableSystem>
-            {children}
-            <Toaster />
-          </ThemeProvider>
+          {/* <ThemeProvider attribute="class" enableSystem> */}
+          {children}
+          <Toaster />
+          {/* </ThemeProvider> */}
         </AuthProviders>
       </body>
     </html>

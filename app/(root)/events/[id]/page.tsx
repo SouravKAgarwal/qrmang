@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { formatDateTime } from "@/lib/utils";
 import { getEvent, getEvents } from "@/resources/event-queries";
 import {
+  BookMarkedIcon,
   Calendar,
   Clock,
   MapPin,
-  Share2,
-  Tag,
   Ticket,
-  User,
+  ArrowRight,
 } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {
   const events = await getEvents();
@@ -64,212 +65,220 @@ export default async function EventDetails({
   const id = (await params).id;
   const event = await getEvent(id);
 
-  if (!event || event.publishedAt === null) {
-    return (
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Event Not Found</h1>
-        <p className="mt-4 text-sm text-muted-foreground">
-          This event is not found.
-        </p>
-      </div>
-    );
-  }
-
-  if (
-    !!event.eventEnd
-      ? new Date(event.eventEnd).toDateString() > new Date().toDateString()
-      : event.eventStart &&
-        new Date(event.eventStart).toDateString() < new Date().toDateString()
-  ) {
-    return (
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Event ended</h1>
-        <p className="mt-4 text-sm text-muted-foreground">
-          This event has already ended.
-        </p>
-      </div>
-    );
-  }
-
   const { date, time } = formatDateTime(
     event.eventStart,
     event.eventEnd! && event.eventEnd,
   );
 
-  return (
-    <div className="container grid grid-cols-1 gap-8 py-8 lg:grid-cols-3">
-      <div className="flex flex-col lg:col-span-2">
-        <div className="mb-8 aspect-video overflow-hidden rounded-lg">
-          {event.eventImageUrl ? (
-            <img
-              src={event.eventImageUrl}
-              alt={event.title}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-gray-100 text-muted-foreground">
-              No thumbnail available
-            </div>
-          )}
-        </div>
-
-        <h1 className="mb-6 text-4xl font-bold">{event.title}</h1>
-
-        <div className="mb-8 grid grid-cols-2 gap-2 md:grid-cols-4">
-          <Card>
-            <CardContent className="flex items-center gap-2 p-3">
-              <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
-              <div>
-                <p className="text-sm font-medium">Date</p>
-                <p className="text-sm text-muted-foreground">{date}</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="flex items-center gap-2 p-3">
-              <Clock className="h-5 w-5 text-primary" aria-hidden="true" />
-              <div>
-                <p className="text-sm font-medium">Time</p>
-                <p className="text-sm text-muted-foreground">{time}</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="flex items-center gap-2 p-3">
-              <Tag className="h-5 w-5 text-primary" aria-hidden="true" />
-              <div>
-                <p className="text-sm font-medium">Category</p>
-                <p className="text-sm capitalize text-muted-foreground">
-                  {event.category}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="flex items-center gap-2 p-3">
-              <User className="h-5 w-5 text-primary" aria-hidden="true" />
-              <div>
-                <p className="text-sm font-medium">Organizer</p>
-                <p className="text-sm text-muted-foreground">
-                  {event.organizerName}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="mb-8 lg:hidden">
-          <Card>
-            <CardContent className="p-6">
-              <div className="mb-6">
-                <p className="font-medium text-muted-foreground">Starts from</p>
-                <p className="mb-2 text-3xl font-bold">
-                  {event.ticketTypes[0]?.price !== undefined
-                    ? `₹${event.ticketTypes[0].price}`
-                    : "Price not available"}
-                </p>
-              </div>
-              <Button asChild className="mb-4 w-full">
-                <Link href={`/events/booking/${event.id}`}>
-                  <Ticket className="mr-2 h-4 w-4" aria-hidden="true" />
-                  Book Tickets
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full"
-                // onClick={handleShare}
-                aria-label="Share this event"
-              >
-                <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
-                Share Event
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="w-full max-w-none">
-          <h2 className="mb-4 text-2xl font-semibold">About this event</h2>
-          <p className="text-muted-foreground">
-            {event.description || "No description provided."}
+  if (!event || event.publishedAt === null) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-center">
+        <div>
+          <h1 className="text-2xl font-bold">Event Not Found</h1>
+          <p className="mt-4 text-sm text-muted-foreground">
+            This event is not found.
           </p>
-        </div>
-
-        <div className="mt-8 max-w-none">
-          <h2 className="mb-4 text-2xl font-semibold">Venue</h2>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex flex-col space-y-4">
-                <div className="flex flex-col items-start space-y-1.5">
-                  <p className="text-lg font-semibold">{event.venue}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {event.address}, {event.city}, {event.state} {event.zipCode}
-                    , {event.country}
-                  </p>
-                </div>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  asChild
-                  className="self-start font-semibold"
-                >
-                  <a
-                    href={`https://maps.google.com/?q=${encodeURIComponent(
-                      event.venue +
-                        ", " +
-                        event.address +
-                        ", " +
-                        event.city +
-                        ", " +
-                        event.state +
-                        " " +
-                        event.zipCode +
-                        ", " +
-                        event.country,
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Get directions to ${event.venue}`}
-                  >
-                    <MapPin className="mr-2 h-4 w-4" aria-hidden="true" />
-                    Get Directions
-                  </a>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <Button className="mt-6" asChild>
+            <Link href="/events">Browse Events</Link>
+          </Button>
         </div>
       </div>
+    );
+  }
 
-      <div className="hidden lg:block">
-        <Card>
-          <CardContent className="p-6">
-            <div className="mb-6">
-              <p className="font-medium text-muted-foreground">Starts from</p>
-              <p className="mb-2 text-3xl font-bold">
-                {event.ticketTypes[0]?.price !== undefined
-                  ? `₹${event.ticketTypes[0].price}`
-                  : "Price not available"}
-              </p>
+  if (date < new Date().toLocaleDateString()) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-center">
+        <div>
+          <h1 className="text-2xl font-bold">Event Ended</h1>
+          <p className="mt-4 text-sm text-muted-foreground">
+            This event has already ended.
+          </p>
+          <Button className="mt-6" asChild>
+            <Link href="/events">Browse Upcoming Events</Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative py-20 md:py-0">
+      <div className="container mx-auto max-w-5xl">
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="mb-8 overflow-hidden rounded-xl shadow-md">
+              <div className="aspect-video w-full">
+                <Image
+                  src={event.eventImageUrl}
+                  alt={event.title}
+                  width={1200}
+                  height={630}
+                  className="h-full w-full object-cover"
+                  priority
+                />
+              </div>
             </div>
-            <Button asChild className="mb-4 w-full">
-              <Link href={`/events/booking/${event.id}`}>
-                <Ticket className="mr-2 h-4 w-4" aria-hidden="true" />
-                Book Tickets
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full"
-              // onClick={handleShare}
-              aria-label="Share this event"
-            >
-              <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
-              Share Event
-            </Button>
-          </CardContent>
-        </Card>
+
+            <div className="mb-4 block lg:hidden">
+              <Card className="overflow-hidden border-0 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm transition-shadow duration-300 hover:shadow-md">
+                <CardContent className="px-2">
+                  <div className="space-y-4">
+                    <h1 className="text-xl font-bold text-gray-900">
+                      {event.title}
+                    </h1>
+
+                    <div className="grid gap-3">
+                      <div className="flex items-start">
+                        <BookMarkedIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-black/80" />
+                        <span className="ml-2 text-sm font-medium capitalize text-gray-600">
+                          {event.category}
+                        </span>
+                      </div>
+
+                      <div className="flex items-start">
+                        <Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-black/80" />
+                        <span className="ml-2 text-sm font-medium text-gray-600">
+                          {date} <span className="mx-1">|</span> {time}
+                        </span>
+                      </div>
+
+                      <div className="flex items-start">
+                        <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-black/80" />
+                        <span className="ml-2 line-clamp-2 text-sm font-medium text-gray-600">
+                          {event.venue}, {event.city}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="mb-8">
+              <h2 className="mb-4 text-2xl font-semibold">About the Event</h2>
+              <div className="prose max-w-none text-muted-foreground">
+                {event.description || "No description provided."}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="mb-4 text-2xl font-semibold">Venue Details</h2>
+              <Card className="border-0 shadow-sm">
+                <CardContent className="p-6">
+                  <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+                    <div>
+                      <h3 className="font-semibold">{event.venue}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {event.address}, {event.city}, {event.state}{" "}
+                        {event.zipCode}, {event.country}
+                      </p>
+                    </div>
+                    <Button
+                      className="bg-black capitalize text-white hover:bg-black/90 hover:text-white/90"
+                      asChild
+                    >
+                      <a
+                        href={`https://maps.google.com/?q=${encodeURIComponent(
+                          `${event.venue}, ${event.address}, ${event.city}, ${event.state} ${event.zipCode}, ${event.country}`,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Directions
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            <Card className="overflow-hidden border-0 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm transition-shadow duration-300 hover:shadow-md">
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  <h1 className="text-xl font-bold text-gray-900">
+                    {event.title}
+                  </h1>
+
+                  <div className="grid gap-3">
+                    <div className="flex items-start">
+                      <BookMarkedIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-black/80" />
+                      <span className="ml-2 text-sm font-medium capitalize text-gray-600">
+                        {event.category}
+                      </span>
+                    </div>
+
+                    <div className="flex items-start">
+                      <Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-black/80" />
+                      <span className="ml-2 text-sm font-medium text-gray-600">
+                        {date} <span className="mx-1">|</span> {time}
+                      </span>
+                    </div>
+
+                    <div className="flex items-start">
+                      <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-black/80" />
+                      <span className="ml-2 line-clamp-2 text-sm font-medium text-gray-600">
+                        {event.venue}, {event.city}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+
+              <Separator className="bg-gray-200" />
+
+              <CardFooter className="bg-white p-4">
+                <div className="flex w-full items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium text-gray-500">
+                      Starts from
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {event.ticketTypes[0]?.price !== undefined ? (
+                        `₹${event.ticketTypes[0].price}`
+                      ) : (
+                        <span className="text-gray-400">Free</span>
+                      )}
+                    </p>
+                  </div>
+
+                  <Button
+                    className="bg-black text-white hover:bg-black/90 hover:text-white/90"
+                    asChild
+                  >
+                    <Link href={`/events/booking/${event.id}`}>
+                      <span className="font-medium">Book Now</span>
+                    </Link>
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </div>
+      <div className="fixed bottom-0 left-0 right-0 z-50 block bg-white p-4 shadow-lg lg:hidden">
+        <div className="container mx-auto flex items-center justify-between">
+          <div>
+            <p className="text-xs font-medium text-muted-foreground">
+              Starts from
+            </p>
+            <p className="text-lg font-bold">
+              {event.ticketTypes[0]?.price !== undefined
+                ? `₹${event.ticketTypes[0].price}`
+                : "Free"}
+            </p>
+          </div>
+          <Button
+            className="bg-black text-white hover:bg-black/90 hover:text-white/90"
+            asChild
+          >
+            <Link href={`/events/booking/${event.id}`}>
+              <span className="font-medium">Book Now</span>
+            </Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

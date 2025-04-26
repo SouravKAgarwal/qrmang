@@ -63,8 +63,6 @@ export async function POST(
 
   const messageBody = `Hurray!\n\nHello ${name}, your booking for the event *"${data.eventTitle}"* on ${formatDate(data.eventStart)} is confirmed!\n\nClick on the below link to view the ticket:\n${process.env.NEXT_PUBLIC_BASE_URL}/events/booking/success?session_id=${data.sessionId}`;
 
-  console.log(messageBody);
-
   try {
     const message = await client.messages.create({
       to: "whatsapp:+916001386472",

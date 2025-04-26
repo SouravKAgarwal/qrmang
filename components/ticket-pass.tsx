@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { Download, Share2 } from "lucide-react";
 import { formatDateTime, generateImage } from "@/lib/utils";
 import type { Event } from "@/types";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 interface TicketPassProps {
   event: Event;
@@ -63,109 +64,111 @@ export default function TicketPass({ event, booking }: TicketPassProps) {
   const { date, time } = formatDateTime(event.eventStart);
 
   return (
-    <div>
-      <div className="mb-2 flex items-center justify-between">
-        <h2 className="mb-2 text-lg font-semibold">Your Ticket</h2>
-        <div className="space-x-2">
+    <Card className="border-0 shadow-sm">
+      <CardHeader className="flex flex-row items-center justify-between pb-4">
+        <CardTitle className="text-lg font-bold">Your Ticket</CardTitle>
+        <div className="no-export flex gap-2">
           <Button
             variant="outline"
-            size="icon"
-            className="flex-1 gap-2 rounded-full"
+            size="sm"
             onClick={handleShare}
+            className="h-9 w-9 rounded-full p-0"
           >
-            <Share2 />
+            <Share2 className="h-4 w-4" />
           </Button>
           <Button
-            size="icon"
+            variant="outline"
+            size="sm"
             onClick={handleDownload}
-            className="flex-1 gap-2 rounded-full"
+            className="h-9 w-9 rounded-full p-0"
           >
-            <Download />
+            <Download className="h-4 w-4" />
           </Button>
         </div>
-      </div>
-      <div
-        ref={canvasRef}
-        className="max-w-md overflow-hidden rounded-sm border border-gray-200 bg-white text-gray-900"
-      >
-        <div className="flex flex-row items-start p-4">
-          <div className="flex items-center gap-4">
-            <div className="mt-6 h-[80px] w-[120px]">
-              <img
-                src={event.eventImageUrl}
-                alt={event.title}
-                className="h-full w-full rounded-md object-cover"
-              />
-            </div>
-            <div className="mt-1 space-y-1">
-              <h2 className="text-lg font-bold">{event.title}</h2>
-              <p className="text-sm text-gray-600">
-                {event.venue}, {event.city}
-              </p>
-              <p className="text-sm text-gray-600">
-                {date} | {time}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <hr className="border-gray-200" />
-
-        <div className="px-4 py-3">
-          <span className="mb-3 inline-block rounded border border-gray-300 bg-gray-100 px-2 py-1 text-xs">
-            {booking.ticketInfo.totalTickets} Ticket(s) -{" "}
-            {booking.ticketInfo.ticketType}
-          </span>
-
-          <div className="space-y-3">
-            {booking.attendees.map((attendee, index) => (
-              <div
-                key={index}
-                className="rounded-md border border-gray-200 px-4 py-3"
-              >
-                <p className="font-medium">
-                  Attendee {index + 1}: {attendee.name}
+      </CardHeader>
+      <CardContent>
+        <div
+          ref={canvasRef}
+          className="w-full max-w-lg rounded-sm border  border-gray-200 bg-white text-gray-900"
+        >
+          <div className="flex flex-row items-start p-4">
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-[80px] w-[160px]">
+                <img
+                  src={event.eventImageUrl}
+                  alt={event.title}
+                  className="h-full w-full rounded-md object-cover"
+                />
+              </div>
+              <div className="mt-1 space-y-1">
+                <h2 className="text-lg font-bold">{event.title}</h2>
+                <p className="text-sm text-gray-600">
+                  {event.venue}, {event.city}
                 </p>
                 <p className="text-sm text-gray-600">
-                  {attendee.gender}, {attendee.age} years
+                  {date} | {time}
                 </p>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
 
-        <hr className="border-gray-200" />
+          <hr className="border-gray-200" />
 
-        <div className="flex items-center justify-between bg-gray-50 px-4 py-3">
-          <div>
-            <p className="text-sm font-medium">
-              BOOKING ID: {booking.bookingReference}
+          <div className="px-4 py-3">
+            <span className="mb-3 inline-block rounded border border-gray-300 bg-gray-100 px-2 py-1 text-xs">
+              {booking.ticketInfo.totalTickets} Ticket(s) -{" "}
+              {booking.ticketInfo.ticketType}
+            </span>
+
+            <div className="space-y-3">
+              {booking.attendees.map((attendee, index) => (
+                <div
+                  key={index}
+                  className="rounded-md border border-gray-200 px-4 py-3"
+                >
+                  <p className="font-medium">
+                    Attendee {index + 1}: {attendee.name}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    {attendee.gender}, {attendee.age} years
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <hr className="border-gray-200" />
+
+          <div className="flex items-center justify-between bg-gray-50 px-4 py-3">
+            <div>
+              <p className="text-sm font-medium">
+                BOOKING ID: {booking.bookingReference}
+              </p>
+              <button className="h-auto p-0 text-sm text-blue-600 hover:underline">
+                Show QR at entrance
+              </button>
+            </div>
+            <TicketQr bookingReference={booking.bookingReference} />
+          </div>
+          <hr className="border-gray-200" />
+
+          <div className="px-4 py-3">
+            <p className="text-xs text-gray-600">
+              A confirmation has been sent to {booking.bookingEmail} and{" "}
+              {booking.bookingPhone}
             </p>
-            <button className="h-auto p-0 text-sm text-blue-600 hover:underline">
-              Show QR at entrance
-            </button>
           </div>
-          <TicketQr bookingReference={booking.bookingReference} />
-        </div>
-        <hr className="border-gray-200" />
 
-        <div className="px-4 py-3">
-          <p className="text-xs text-gray-600">
-            A confirmation has been sent to {booking.bookingEmail} and{" "}
-            {booking.bookingPhone}
-          </p>
-        </div>
+          <div className="border border-dashed border-gray-300" />
 
-        <div className="border border-dashed border-gray-300" />
-
-        <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-sm font-semibold">Total Amount</span>
-          <span className="text-sm font-bold">
-            Rs.{booking.ticketInfo.totalAmount.toFixed(2)}
-          </span>
+          <div className="flex items-center justify-between px-4 py-3">
+            <span className="text-sm font-semibold">Total Amount</span>
+            <span className="text-sm font-bold">
+              Rs.{booking.ticketInfo.totalAmount.toFixed(2)}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="mt-8 flex flex-col gap-4 py-3 sm:flex-row"></div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

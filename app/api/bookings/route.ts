@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
             currency: "inr",
             product_data: {
               name: `${event.title} Ticket (${ticketTypeInfo.name})`,
-              description: `Quantity: ${quantity}\nEvent:${eventId}`,
+              description: `Quantity: ${quantity}`,
             },
             unit_amount: Number(price) * 100,
           },
