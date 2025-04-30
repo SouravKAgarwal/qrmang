@@ -64,8 +64,8 @@ export default function TicketPass({ event, booking }: TicketPassProps) {
   const { date, time } = formatDateTime(event.eventStart);
 
   return (
-    <Card className="border-0 shadow-sm">
-      <CardHeader className="flex flex-row items-center justify-between pb-4">
+    <Card className="border-0 p-0 shadow-sm">
+      <CardHeader className="flex flex-row items-center justify-between pb-4 p-0">
         <CardTitle className="text-lg font-bold">Your Ticket</CardTitle>
         <div className="no-export flex gap-2">
           <Button
@@ -86,7 +86,7 @@ export default function TicketPass({ event, booking }: TicketPassProps) {
           </Button>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-0 mt-4">
         <div
           ref={canvasRef}
           className="w-full max-w-lg rounded-sm border  border-gray-200 bg-white text-gray-900"

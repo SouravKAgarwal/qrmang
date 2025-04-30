@@ -5,29 +5,22 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1745262274284,
-      "tag": "0000_sour_zaladane",
+      "when": 1745929842336,
+      "tag": "0000_tricky_maverick",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1745457349956,
-      "tag": "0001_sweet_azazel",
+      "when": 1745972180127,
+      "tag": "0001_secret_dreaming_celestial",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "7",
-      "when": 1745457460262,
-      "tag": "0002_slow_fat_cobra",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1745477663249,
-      "tag": "0003_supreme_gauntlet",
+      "when": 1745973517709,
+      "tag": "0002_lazy_bloodstrike",
       "breakpoints": true
     }
   ]

@@ -44,7 +44,7 @@ export default async function Failed({
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4">
+    <div className="mx-auto max-w-4xl px-4 py-8">
       <div className="mb-6 flex items-center">
         <Button variant="ghost" className="mr-4">
           <HiArrowLeft className="mr-2" />

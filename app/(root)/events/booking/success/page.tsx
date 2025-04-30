@@ -73,7 +73,7 @@ export default async function SuccessPage({
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4">
+    <div className="mx-auto max-w-4xl py-8">
       <div className="mb-12 text-center">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border-4 border-green-100 bg-green-50">
           <Check className="h-10 w-10 text-green-600" />

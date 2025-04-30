@@ -94,15 +94,6 @@ export default async function BookTicketsPage({
 
   return (
     <div className="container mx-auto max-w-4xl">
-      <div className="pb-4 pt-6">
-        <Button asChild variant="ghost" className="pl-0 hover:bg-transparent">
-          <Link href={`/events/${id}`}>
-            <ArrowLeft />
-            Back to event
-          </Link>
-        </Button>
-      </div>
-
       <div className="sticky top-14 z-10 w-full border-b bg-background">
         <div className="flex w-full flex-col items-center justify-center gap-4 py-4 md:flex-row">
           <div>

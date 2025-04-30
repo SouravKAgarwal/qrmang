@@ -4,9 +4,7 @@ import { auth } from "@/auth";
 import type { Metadata } from "next";
 import {
   QrCode,
-  Users,
   Clock,
-  Server,
   Utensils,
   ShoppingCart,
   Calendar,
@@ -39,12 +37,12 @@ export default async function Home() {
           <span>Transform Business Operations with QR Technology</span>
         </div>
 
-        <h1 className="text-center text-3xl font-bold leading-tight sm:text-3xl md:text-4xl">
+        <h1 className="text-center text-3xl font-bold sm:text-4xl">
           The Smarter Way to{" "}
           <span className="text-primary">Run Your Business</span>
         </h1>
 
-        <p className="max-w-2xl text-center text-sm text-gray-600">
+        <p className="max-w-2xl text-center text-lg text-gray-600">
           Replace outdated processes with dynamic QR solutions that save time,
           reduce costs, and create seamless customer experiences.
         </p>
@@ -193,7 +191,7 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-8">
             {[
               {
                 name: "Restaurants",

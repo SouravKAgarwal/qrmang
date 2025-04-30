@@ -121,7 +121,7 @@ export default async function EventDetails({
             </div>
 
             <div className="mb-4 block lg:hidden">
-              <Card className="overflow-hidden border-0 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm transition-shadow duration-300 hover:shadow-md">
+              <Card className="overflow-hidden border-0 shadow-none">
                 <CardContent className="px-2">
                   <div className="space-y-4">
                     <h1 className="text-xl font-bold text-gray-900">
