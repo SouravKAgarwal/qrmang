@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { auth } from "@/auth";
 import type { Metadata } from "next";
 import {
   QrCode,
@@ -17,6 +15,8 @@ import {
   BarChart2,
 } from "lucide-react";
 import Image from "next/image";
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "QR Code Solutions for Modern Businesses",
@@ -24,12 +24,11 @@ export const metadata: Metadata = {
     "Streamline operations and enhance customer engagement with intelligent QR technology",
 };
 
-export default async function Home() {
-  const session = await auth();
-
+export default function Home() {
   return (
-    <div className="-my-10 -mb-20">
-      <section className="relative flex w-full flex-col items-center justify-center gap-8 px-4 py-20 sm:px-6 lg:px-8">
+    <div >
+      <Navbar />
+      <section className="relative flex w-full flex-col items-center justify-center gap-8 px-4 pt-40 sm:px-6 lg:px-8">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/5 to-white" />
 
         <div className="hidden items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary sm:flex">
@@ -46,45 +45,6 @@ export default async function Home() {
           Replace outdated processes with dynamic QR solutions that save time,
           reduce costs, and create seamless customer experiences.
         </p>
-
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-          {!!session?.user ? (
-            session?.user.role === "business" ? (
-              <>
-                <Button size="lg" asChild>
-                  <Link href="/dashboard/organiser">Dashboard</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/dashboard/organiser/create">Create</Link>
-                </Button>
-              </>
-            ) : session?.user.role === "admin" ? (
-              <>
-                <Button size="lg" asChild>
-                  <Link href="/dashboard/admin">Dashboard</Link>
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button size="lg" asChild>
-                  <Link href="/user/profile">Profile</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/user/bookings">My Bookings</Link>
-                </Button>
-              </>
-            )
-          ) : (
-            <>
-              <Button size="lg" asChild>
-                <Link href="/auth/sign-in">Get Started</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/auth/sign-up">Join Now</Link>
-              </Button>
-            </>
-          )}
-        </div>
 
         <div className="mt-12 w-full max-w-6xl">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -294,7 +254,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="bg-primary py-20 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
@@ -307,15 +266,17 @@ export default async function Home() {
             </p>
             <div className="mt-8 flex justify-center gap-4">
               <Button size="lg" variant="secondary">
-                Start Free Trial
+                Get Started
               </Button>
               <Button size="lg" variant="outline" className="text-primary">
-                Request Demo
+                Contact Us
               </Button>
             </div>
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

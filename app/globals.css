@@ -79,7 +79,7 @@
     @apply border-border;
   }
   body {
-    @apply select-none scroll-smooth bg-background font-firaSans text-foreground;
+    @apply select-none scroll-smooth;
   }
 }
 
@@ -130,14 +130,5 @@
 
   input[type="number"] {
     -moz-appearance: textfield;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

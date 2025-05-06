@@ -3,14 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatDateTime } from "@/lib/utils";
 import { getEvent, getEvents } from "@/resources/event-queries";
-import {
-  BookMarkedIcon,
-  Calendar,
-  Clock,
-  MapPin,
-  Ticket,
-  ArrowRight,
-} from "lucide-react";
+import { BookMarkedIcon, Calendar, MapPin } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -72,38 +65,28 @@ export default async function EventDetails({
 
   if (!event || event.publishedAt === null) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-center">
-        <div>
-          <h1 className="text-2xl font-bold">Event Not Found</h1>
-          <p className="mt-4 text-sm text-muted-foreground">
-            This event is not found.
-          </p>
-          <Button className="mt-6" asChild>
-            <Link href="/events">Browse Events</Link>
-          </Button>
-        </div>
+      <div className="py-12 text-center">
+        <h1 className="text-2xl font-bold">Event Not Found</h1>
+        <p className="mt-4 text-sm text-muted-foreground">
+          This event is not found.
+        </p>
       </div>
     );
   }
 
   if (date < new Date().toLocaleDateString()) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-center">
-        <div>
-          <h1 className="text-2xl font-bold">Event Ended</h1>
-          <p className="mt-4 text-sm text-muted-foreground">
-            This event has already ended.
-          </p>
-          <Button className="mt-6" asChild>
-            <Link href="/events">Browse Upcoming Events</Link>
-          </Button>
-        </div>
+      <div className="py-12 text-center">
+        <h1 className="text-2xl font-bold">Event ended</h1>
+        <p className="mt-4 text-sm text-muted-foreground">
+          This event has already ended.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="relative py-20 md:py-0">
+    <div className="relative px-4 py-10 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-5xl">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">

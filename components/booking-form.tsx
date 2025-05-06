@@ -673,8 +673,8 @@ export function TicketBookingForm({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex flex-col gap-8 md:flex-row">
-            <div className="w-full md:w-1/3">
-              <Card className="overflow-hidden border-0 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+            <div className="order-2 w-full md:w-1/3">
+              <Card className="hidden overflow-hidden border-0 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm md:block">
                 <CardHeader>
                   <CardTitle className="text-lg">Booking Progress</CardTitle>
                   <Progress value={(step / 4) * 100} className="h-2" />

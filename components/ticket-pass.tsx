@@ -64,15 +64,15 @@ export default function TicketPass({ event, booking }: TicketPassProps) {
   const { date, time } = formatDateTime(event.eventStart);
 
   return (
-    <Card className="border-0 p-0 shadow-sm">
-      <CardHeader className="flex flex-row items-center justify-between pb-4 p-0">
-        <CardTitle className="text-lg font-bold">Your Ticket</CardTitle>
-        <div className="no-export flex gap-2">
+    <Card className="border-0 p-2.5 shadow-sm">
+      <CardHeader className="flex flex-row items-center justify-between p-0">
+        <CardTitle className="text-xl font-semibold">Your Ticket</CardTitle>
+        <div className="flex gap-2">
           <Button
             variant="outline"
             size="sm"
             onClick={handleShare}
-            className="h-9 w-9 rounded-full p-0"
+            className="h-8 w-8 rounded-full p-0"
           >
             <Share2 className="h-4 w-4" />
           </Button>
@@ -80,16 +80,16 @@ export default function TicketPass({ event, booking }: TicketPassProps) {
             variant="outline"
             size="sm"
             onClick={handleDownload}
-            className="h-9 w-9 rounded-full p-0"
+            className="h-8 w-8 rounded-full p-0"
           >
             <Download className="h-4 w-4" />
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="p-0 mt-4">
+      <CardContent className="mt-4 p-0">
         <div
           ref={canvasRef}
-          className="w-full max-w-lg rounded-sm border  border-gray-200 bg-white text-gray-900"
+          className="w-full max-w-[450px] rounded-sm border border-gray-200 bg-white text-gray-900"
         >
           <div className="flex flex-row items-start p-4">
             <div className="flex items-center justify-center gap-4">

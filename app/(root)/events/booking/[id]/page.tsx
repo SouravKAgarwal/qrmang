@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft } from "lucide-react";
 import { formatDateTime } from "@/lib/utils";
 import { auth } from "@/auth";
 import { type Metadata } from "next";
@@ -93,8 +92,8 @@ export default async function BookTicketsPage({
   }
 
   return (
-    <div className="container mx-auto max-w-4xl">
-      <div className="sticky top-14 z-10 w-full border-b bg-background">
+    <div className="container -mt-10">
+      <div className="sticky top-14 z-10 w-full scroll-px-4 border-b bg-background">
         <div className="flex w-full flex-col items-center justify-center gap-4 py-4 md:flex-row">
           <div>
             <h1 className="line-clamp-1 font-semibold tracking-tighter">
@@ -115,7 +114,7 @@ export default async function BookTicketsPage({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 py-8 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 py-20 sm:px-6 md:py-10 lg:grid-cols-2 lg:px-8">
         <div className="lg:col-span-2">
           {session?.user?.id ? (
             <TicketBookingForm
