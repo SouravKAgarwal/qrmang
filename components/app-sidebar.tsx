@@ -23,7 +23,7 @@ interface Props {
       title: string;
       show?: boolean;
       items: {
-        title: string;
+        title: string | undefined;
         url: string;
       }[];
     }[];
@@ -55,13 +55,16 @@ export function AppSidebar({ data, user }: Props) {
                 )}
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {item.items.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild>
-                          <Link href={item.url}>{item.title}</Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
+                    {item.items.map(
+                      (item) =>
+                        item.title && (
+                          <SidebarMenuItem key={item.title}>
+                            <SidebarMenuButton asChild>
+                              <Link href={item.url}>{item.title}</Link>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        ),
+                    )}
                   </SidebarMenu>
                 </SidebarGroupContent>
               </SidebarGroup>

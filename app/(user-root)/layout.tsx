@@ -29,18 +29,8 @@ export default async function DashboardLayout({
           { title: "Home", url: "/" },
           { title: "Profile", url: "/user/profile" },
           {
-            title:
-              session?.user.role === "business"
-                ? "Your Events"
-                : session?.user.role === "user"
-                  ? "Your Bookings"
-                  : "",
-            url:
-              session?.user.role === "business"
-                ? "/user/events"
-                : session?.user.role === "user"
-                  ? "/user/bookings"
-                  : "",
+            title: session?.user.role === "user" ? "Your Bookings" : undefined,
+            url: session?.user.role === "user" ? "/user/bookings" : "",
           },
         ],
       },
@@ -60,8 +50,6 @@ export default async function DashboardLayout({
           <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-6 md:px-10">
             <SidebarTrigger className="-ml-1" />
             <ul className="flex items-center space-x-2">
-              {/* <ThemeToggle /> */}
-
               <Button
                 variant="ghost"
                 size="sm"

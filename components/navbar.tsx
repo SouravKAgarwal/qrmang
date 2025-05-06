@@ -11,8 +11,16 @@ const Navbar = async () => {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between bg-black px-6 py-2 text-white md:px-10">
       <h3 className="text-xl font-semibold tracking-wider">
-        <Link href="/" className="font-firaSans">
-          QRMang
+        <Link href="/">
+          <div className="flex-none text-xl font-semibold dark:text-white">
+            <div className="flex items-center gap-1 drop-shadow-sm">
+              <Image src="/logo.png" alt="LastQR logo" width={28} height={28} />
+              <div className="font-semibold">
+                <span className="text-[#ffc545]">Last</span>
+                <span className="text-[#07d3b0]">QR</span>
+              </div>
+            </div>
+          </div>
         </Link>
       </h3>
 
