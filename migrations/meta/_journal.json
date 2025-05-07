@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1745929842336,
-      "tag": "0000_tricky_maverick",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1745972180127,
-      "tag": "0001_secret_dreaming_celestial",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1745973517709,
-      "tag": "0002_lazy_bloodstrike",
+      "when": 1746645503978,
+      "tag": "0000_brown_vulture",
       "breakpoints": true
     }
   ]

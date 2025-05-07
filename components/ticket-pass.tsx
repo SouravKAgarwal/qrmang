@@ -64,7 +64,7 @@ export default function TicketPass({ event, booking }: TicketPassProps) {
   const { date, time } = formatDateTime(event.eventStart);
 
   return (
-    <Card className="border-0 p-0 shadow-sm">
+    <Card className="border-0 p-4 shadow-sm">
       <CardHeader className="flex flex-row items-center justify-between pb-4 p-0">
         <CardTitle className="text-lg font-bold">Your Ticket</CardTitle>
         <div className="no-export flex gap-2">

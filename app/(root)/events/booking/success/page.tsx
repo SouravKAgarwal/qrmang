@@ -91,43 +91,11 @@ export default async function SuccessPage({
       </div>
 
       <div className="grid gap-8 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
+        <div className="space-y-6 mx-auto lg:col-span-2">
           <TicketPass event={event} booking={booking} />
-
-          <Card className="border-0 shadow-sm">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg font-bold">
-                Event Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-primary/10 p-2">
-                  <Calendar className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Date & Time</p>
-                  <p className="font-medium">
-                    {date} at {time}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-primary/10 p-2">
-                  <MapPin className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Location</p>
-                  <p className="font-medium">
-                    {event.venue}, {event.city}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 mx-auto lg:col-span-1">
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg font-bold">Order Summary</CardTitle>
@@ -193,22 +161,6 @@ export default async function SuccessPage({
                   </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-sm">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg font-bold">Need Help?</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button variant="outline" className="w-full">
-                <Mail className="mr-2 h-4 w-4" />
-                Email Support
-              </Button>
-              <Button variant="outline" className="w-full">
-                <Phone className="mr-2 h-4 w-4" />
-                Call Support
-              </Button>
             </CardContent>
           </Card>
         </div>
