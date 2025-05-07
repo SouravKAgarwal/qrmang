@@ -29,21 +29,12 @@ export async function updateUserAction(values: unknown): Promise<Res> {
     return { success: false, error: flattenedErrors, statusCode: 400 };
   }
 
-  const { id, name, image, role, businessName, businessDescription } =
-    parsedValues.output;
+  const { id, name, image } = parsedValues.output;
 
   const session = await auth();
 
   if (!session?.user?.id || session?.user?.id !== id) {
     return { success: false, error: "Unauthorized access", statusCode: 401 };
-  }
-
-  if (role === "business" && !businessName) {
-    return {
-      success: false,
-      error: { nested: { businessName: ["Business name is required"] } },
-      statusCode: 400,
-    };
   }
 
   try {
@@ -54,7 +45,6 @@ export async function updateUserAction(values: unknown): Promise<Res> {
       .set({
         name: name,
         image: newImage,
-        role: role || null, 
       })
       .where(eq(users.id, id))
       .returning({
@@ -67,30 +57,6 @@ export async function updateUserAction(values: unknown): Promise<Res> {
 
     if (!updateUser) {
       return { success: false, error: "User not found", statusCode: 500 };
-    }
-
-    if (role === "business" && businessName) {
-      const existingBusiness = await db
-        .select()
-        .from(businesses)
-        .where(eq(businesses.ownerId, id))
-        .then((res) => res[0] ?? null);
-
-      if (existingBusiness) {
-        await db
-          .update(businesses)
-          .set({
-            name: businessName,
-            description: businessDescription ?? "",
-          })
-          .where(eq(businesses.ownerId, id));
-      } else {
-        await db.insert(businesses).values({
-          name: businessName,
-          description: businessDescription ?? "",
-          ownerId: id,
-        });
-      }
     }
 
     return { success: true, data: updateUser };

@@ -18,7 +18,9 @@ export type User = {
 export type Business = {
   id: string;
   name: string | null;
-  owner: { name: string | null } | null;
+  owner?: { name: string | null } | null;
+  description: string | null;
+  businessType: "restaurant" | "event";
 };
 
 export type DashboardData = {

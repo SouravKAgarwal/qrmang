@@ -34,27 +34,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Upload } from "lucide-react";
-import { businesses } from "@/drizzle/schema";
 import { signOut } from "next-auth/react";
 import { Separator } from "./ui/separator";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import Image from "next/image";
 
-export function ProfileForm({
-  user,
-  business,
-}: {
-  user: User;
-  business: typeof businesses.$inferSelect;
-}) {
+export function ProfileForm({ user }: { user: User }) {
   const [success, setSuccess] = useState<string>("");
   const [uploadError, setUploadError] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(
     user?.image || null,
   );
-  const [isBusiness, setIsBusiness] = useState<boolean>(
-    user?.role === "business",
-  );
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: session, update } = useSession();
@@ -66,9 +56,6 @@ export function ProfileForm({
       id: user?.id || "",
       name: user?.name || "",
       image: user?.image || "",
-      role: user?.role,
-      businessName: business?.name || undefined,
-      businessDescription: business?.description || undefined,
     },
   });
 
@@ -91,15 +78,6 @@ export function ProfileForm({
     fileInputRef.current?.click();
   };
 
-  const handleBusinessToggle = (checked: boolean) => {
-    setIsBusiness(checked);
-    setValue("role", checked ? "business" : user?.role);
-    if (!checked) {
-      setValue("businessName", "");
-      setValue("businessDescription", "");
-    }
-  };
-
   const onSubmit = async (values: UpdateUserInfoInput) => {
     try {
       const res = await updateUserAction(values);
@@ -113,7 +91,6 @@ export function ProfileForm({
             ...session?.user,
             name: updatedUser.name,
             image: updatedUser.image,
-            role: updatedUser.role,
           },
         });
 
@@ -297,110 +274,8 @@ export function ProfileForm({
             </CardContent>
           </Card>
 
-          {user?.role !== "admin" && (
-            <div className="flex items-center justify-between rounded-lg border border-gray-200 p-4 shadow-sm dark:border-gray-700">
-              <div>
-                <FormLabel className="text-2xl font-medium">
-                  Business Profile
-                </FormLabel>
-                <FormDescription>
-                  Enable to create and manage business listings.
-                </FormDescription>
-              </div>
-              <FormControl>
-                <Switch
-                  checked={isBusiness}
-                  onCheckedChange={handleBusinessToggle}
-                  aria-label="Toggle business profile"
-                />
-              </FormControl>
-            </div>
-          )}
-
-          <AnimatePresence>
-            {isBusiness && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-2xl font-semibold">
-                      Business Details
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <FormField
-                      control={control}
-                      name="businessName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Business Name</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Enter your business name"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            The public name of your business.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={control}
-                      name="businessDescription"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Business Description</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Describe what your business offers"
-                              rows={5}
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            A brief overview of your business (optional).
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           <div className="flex justify-end">
             <Button type="submit" disabled={formState.isSubmitting}>
-              {formState.isSubmitting ? (
-                <motion.span
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 1 }}
-                  className="mr-2 inline-block"
-                >
-                  <svg
-                    className="h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                </motion.span>
-              ) : null}
               {formState.isSubmitting ? "Updating..." : "Save Changes"}
             </Button>
           </div>

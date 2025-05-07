@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Fira_Sans, Geist } from "next/font/google";
 import { Providers as AuthProviders } from "@/components/providers";
-import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -39,14 +38,12 @@ export default function RootLayout({
         className={cn(
           geistSans.variable,
           firaSans.variable,
-          "scroll-smooth bg-[#fafafa] font-firaSans antialiased",
+          "scroll-smooth bg-[#fcf9f9] font-geistSans antialiased",
         )}
       >
         <AuthProviders>
-          {/* <ThemeProvider attribute="class" enableSystem> */}
           {children}
           <Toaster />
-          {/* </ThemeProvider> */}
         </AuthProviders>
       </body>
     </html>

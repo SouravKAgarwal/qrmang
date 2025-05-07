@@ -44,14 +44,7 @@ export default async function Failed({
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
-      <div className="mb-6 flex items-center">
-        <Button variant="ghost" className="mr-4">
-          <HiArrowLeft className="mr-2" />
-          Back to Events
-        </Button>
-      </div>
-
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-12 text-center">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50">
           <HiX className="h-12 w-12 text-red-600" />

@@ -6,8 +6,8 @@ export default function AuthLayout({
   children: Readonly<React.ReactNode>;
 }) {
   return (
-    <div className="w-full max-w-sm md:max-w-3xl">
-      <div className="flex flex-col items-center justify-center gap-6">
+    <div className="w-full max-w-md md:max-w-3xl">
+      <div className="flex flex-col items-center justify-center gap-6 px-4 py-10">
         {children}
         <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
           By clicking continue, you agree to our{" "}

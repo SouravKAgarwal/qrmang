@@ -13,7 +13,7 @@ export default async function VerifyBookingPage({
   const bookingReference = (await searchParams).bookingReference;
 
   return (
-    <div className="flex w-full items-center justify-center">
+    <div className="flex w-full items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
       <VerifyBooking bookingReference={bookingReference} />
     </div>
   );
