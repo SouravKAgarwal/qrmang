@@ -73,7 +73,7 @@ export default async function SuccessPage({
   }
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-4xl py-8">
       <div className="mb-12 text-center">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border-4 border-green-100 bg-green-50">
           <Check className="h-10 w-10 text-green-600" />
@@ -90,10 +90,12 @@ export default async function SuccessPage({
         </p>
       </div>
 
-      <div className="flex flex-col justify-center gap-8 md:flex-row">
-        <div className="space-y-6">
+      <div className="grid gap-8 lg:grid-cols-3">
+        <div className="space-y-6 mx-auto lg:col-span-2">
           <TicketPass event={event} booking={booking} />
+        </div>
 
+        <div className="space-y-6 mx-auto lg:col-span-1">
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg font-bold">Order Summary</CardTitle>
@@ -120,9 +122,7 @@ export default async function SuccessPage({
               </div>
             </CardContent>
           </Card>
-        </div>
 
-        <div className="space-y-6">
           <Card className="border-0 bg-blue-50 shadow-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg font-bold">What's Next?</CardTitle>
@@ -161,22 +161,6 @@ export default async function SuccessPage({
                   </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-sm">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg font-bold">Need Help?</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button variant="outline" className="w-full">
-                <Mail className="mr-2 h-4 w-4" />
-                Email Support
-              </Button>
-              <Button variant="outline" className="w-full">
-                <Phone className="mr-2 h-4 w-4" />
-                Call Support
-              </Button>
             </CardContent>
           </Card>
         </div>

@@ -633,7 +633,7 @@ export function TicketBookingForm({
               <CardFooter>
                 <Button
                   onClick={form.handleSubmit(onSubmit)}
-                  className="w-full py-6 text-lg font-bold"
+                  className="w-full py-6"
                   disabled={isLoading}
                 >
                   {isLoading ? (

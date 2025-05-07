@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { ArrowLeft } from "lucide-react";
 import { formatDateTime } from "@/lib/utils";
 import { auth } from "@/auth";
 import { type Metadata } from "next";
@@ -72,7 +73,7 @@ export default async function BookTicketsPage({
   if (!event || event.publishedAt === null) {
     return (
       <div className="py-12 text-center">
-        <h1 className="text-2xl font-bold">Event Not Found</h1>
+        <h1 className="text-2xl font-bold text-rose-400">Event Not Found</h1>
         <p className="mt-4 text-sm text-muted-foreground">
           This event is not found.
         </p>
@@ -83,7 +84,7 @@ export default async function BookTicketsPage({
   if (date < new Date().toLocaleDateString()) {
     return (
       <div className="py-12 text-center">
-        <h1 className="text-2xl font-bold">Event ended</h1>
+        <h1 className="text-2xl font-bold text-rose-400">Event ended</h1>
         <p className="mt-4 text-sm text-muted-foreground">
           This event has already ended.
         </p>
@@ -91,9 +92,20 @@ export default async function BookTicketsPage({
     );
   }
 
+  if (session?.user?.role === "business") {
+    return (
+      <div className="py-12 text-center">
+        <h1 className="text-2xl font-bold text-rose-400">Business Account</h1>
+        <p className="mt-4 text-sm text-muted-foreground">
+          You cannot book tickets with a business account.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="container -mt-10">
-      <div className="sticky top-14 z-10 w-full scroll-px-4 border-b bg-background">
+      <div className="sticky top-14 z-10 w-full border-b bg-background">
         <div className="flex w-full flex-col items-center justify-center gap-4 py-4 md:flex-row">
           <div>
             <h1 className="line-clamp-1 font-semibold tracking-tighter">
@@ -114,7 +126,7 @@ export default async function BookTicketsPage({
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 py-20 sm:px-6 md:py-10 lg:grid-cols-2 lg:px-8">
+      <div className="container mx-auto grid max-w-4xl grid-cols-1 gap-8 py-8 lg:grid-cols-2">
         <div className="lg:col-span-2">
           {session?.user?.id ? (
             <TicketBookingForm

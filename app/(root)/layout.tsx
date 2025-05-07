@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <>
       <Navbar />
-      <div className="flex min-h-svh w-full flex-col items-center justify-center pt-10 font-geistSans md:pt-20">
+      <div className="flex min-h-svh w-full flex-col items-center justify-center px-4 pt-10 font-geistSans sm:px-6 md:px-8 md:pt-20 pb-10 lg:px-10">
         {children}
       </div>
       <div className="mt-6 md:mt-0">
